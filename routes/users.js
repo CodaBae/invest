@@ -300,7 +300,13 @@ router.post('/donate', (req, res) => {
 
           if (!pay) {
 
-            user.paring = true
+            User.updateOne({ _id: userId }, {  paring: true  }, function (err, payto) {
+              if (err) {
+                res.json({
+                  error: err
+                })
+              }
+            })
 
             res.redirect('/dashboard')
 
@@ -380,8 +386,14 @@ router.post('/donate', (req, res) => {
 
           if (!pay) {
 
-            user.paring = true
-
+            User.updateOne({ _id: userId }, {  paring: true  }, function (err, payto) {
+              if (err) {
+                res.json({
+                  error: err
+                })
+              }
+            })
+            
             res.redirect('/dashboard')
 
           } else {
