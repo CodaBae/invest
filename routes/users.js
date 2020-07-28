@@ -23,6 +23,7 @@ router.get('/terms', (req, res) => res.render('terms'));
 
 router.get('/pay', (req, res) => res.render('pay'));
 router.get('/i', (req, res) => {
+  console.log('reahing')
   User.findOne({ _id: req.query.id }).then(user => { 
     User.updateOne({ _id: req.query.id }, { invite : user.invite + 1 }, function (err, payto) {
       if (err) {
@@ -393,7 +394,7 @@ router.post('/donate', (req, res) => {
                 })
               }
             })
-            
+
             res.redirect('/dashboard')
 
           } else {
