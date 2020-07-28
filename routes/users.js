@@ -272,7 +272,7 @@ router.post('/donate', (req, res) => {
   }
 
   User.findOne({ _id: userId }).then(user => {
-    if (user.status === false) {
+    if (user.status == false) {
 
       errors.push({ msg: 'you need to register your account, pay 1000 to this Account Number' });
       res.render('pay', {
