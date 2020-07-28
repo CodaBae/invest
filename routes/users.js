@@ -19,7 +19,68 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
 
 router.get('/join', (req, res) => res.render('join'));
+router.get('/terms', (req, res) => res.render('terms'));
+
 router.get('/pay', (req, res) => res.render('pay'));
+router.get('/i', (req, res) => {
+  User.findOne({ _id: req.query.id }).then(user => { 
+    User.updateOne({ _id: req.query.id }, { invite : user.invite + 1 }, function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+    res.redirect('/users/register')
+  })
+});
+router.get('/close_payto', (req, res) => {
+
+  User.findOne({ _id: req.query.myId }).then(user => { 
+
+    User.updateOne( { _id: req.query.myId }, { $pull: { 'payto': { payId: req.query.id } } },
+    function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+
+    res.redirect('/dashboard')
+  })
+});
+
+router.get('/close_paired', (req, res) => {
+  User.findOne({ _id: req.query.myId }).then(user => { 
+
+    User.updateOne( { _id: req.query.myId }, { $pull: { 'paired': { userId: req.query.id } } },
+    function (err, payto) {
+      console.log(payto)
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+    console.log('ddddd',req.query.id)
+
+    User.updateOne( { _id: req.query.myId },  { $pull: { 'proof': { userId: req.query.id } } },
+    function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+
+    res.redirect('/dashboard')
+  })
+});
 
 router.post('/proof', (req, res) => {
   const { img } = req.body;
@@ -27,7 +88,7 @@ router.post('/proof', (req, res) => {
   User.findOne({ _id: req.query.id }).then(user => {
 
     let payid = user.payto[0].payId
-    User.updateOne({ _id: payid }, { $push: { proof: [{ img: img }] } }, function (err, payto) {
+    User.updateOne({ _id: payid }, { $push: { proof: [{ img: img, userId:req.query.id }] } }, function (err, payto) {
       if (err) {
         res.json({
           error: err

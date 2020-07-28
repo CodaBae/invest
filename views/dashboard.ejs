@@ -180,15 +180,23 @@
           <%} %>
 
           <div class='account2'>
-                    <h4 class='name'> Number of Investment Made</h4>
+                    <h4 class='name' style='text-align:center'> Number of Investment Made</h4>
                     <h4><%= user.investNumber %></h4>
 
           </div>
 
 
            <div class='account2'>
-                    <h4 class='name'> Number of Persons Referred</h4>
+                    <h4 class='name' style='text-align:center'> Number of Persons Referred</h4>
                     <h4><%= user.invite %></h4>
+
+                    <p class='name'>referal link: </p>
+
+                   <p style='    font-size: 12px;
+    word-break: break-all;
+    font-weight: 700;'> http://codabae.herokuapp.com/users/i/<%=user._id%></p>
+                   <br>
+
 
           </div>
 
@@ -250,19 +258,26 @@
                 </button> 
 
           <%  } %>
-
-          <div class='account2'>
-                    <h4 class='name'> Number of Investment Made</h4>
+<div class='account2'>
+                    <h4 class='name' style='text-align:center'> Number of Investment Made</h4>
                     <h4><%= user.investNumber %></h4>
 
           </div>
 
+
            <div class='account2'>
-                    <h4 class='name'> Number of Persons Referred</h4>
+                    <h4 class='name' style='text-align:center'> Number of Persons Referred</h4>
                     <h4><%= user.invite %></h4>
 
-          </div>
+                    <p class='name'>referal link: </p>
 
+                   <p style='    font-size: 12px;
+    word-break: break-all;
+    font-weight: 700;' style='text-align:center'> http://codabae.herokuapp.com/users/i/?id=<%=user._id%></p>
+                   <br>
+
+
+          </div>
 
 
 <a href="/users/logout" class="btn btn-secondary">Logout</a>
@@ -344,6 +359,9 @@
 
                             
                                 <h3 class="title-3 m-b-30">You have been Paired with <%=item.name%></h3>
+
+                              <a style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' href='/users/close_paired/?id=<%=item.userId%>&myId=<%=user._id%>'> <i class="fa fa-window-close" style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' aria-hidden="true"></i></a> 
+
                                 
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
@@ -447,6 +465,9 @@
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
                                 <h3 class="title-3 m-b-30">You have been Paired with <%=data.payName%>, Pay into this Account</h3>
+
+                              <a style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' href='/users/close_payto/?id=<%=data.payId%>&myId=<%=user._id%>'> <i class="fa fa-window-close" style=' float: right; margin-top: -6%; font-size: 2rem; color: red;' aria-hidden="true"></i></a> 
+
                                 
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
@@ -503,8 +524,8 @@
                                     border-radius: 5px;
                                         cursor:pointer
                                 '>
-                                               Send Proof
-                                                </button>
+                                        Send Proof
+                                    </button>
                                 </form>
 
                                
