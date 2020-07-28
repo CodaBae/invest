@@ -21,6 +21,21 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 router.get('/join', (req, res) => res.render('join'));
 router.get('/terms', (req, res) => res.render('terms'));
 
+router.get('/testimony', (req, res) => {
+  User.findOne({ _id: req.query.id }).then(user => { 
+    User.updateOne({ _id: user }, { testimony : testimony }, function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+    res.redirect('/users/register')
+  })
+  res.render('testimony')
+});
+
 router.get('/pay', (req, res) => res.render('pay'));
 router.get('/i', (req, res) => {
   console.log('reahing')
