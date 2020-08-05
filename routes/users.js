@@ -290,7 +290,7 @@ router.post('/donate', (req, res) => {
   User.findOne({ _id: userId }).then(user => {
     if (user.status == false) {
 
-      errors.push({ msg: 'you need to register your account, pay 1000 to this Account Number' });
+      errors.push({ msg: 'pay 1000 to activate your account' });
       res.render('pay', {
         errors,
 
