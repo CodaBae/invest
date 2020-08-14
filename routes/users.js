@@ -69,6 +69,44 @@ router.get('/close_payto', (req, res) => {
   })
 });
 
+router.post('/block', (req, res) => {
+
+  console.log(req.query.id )
+
+  User.findOne({ _id: req.query.id }).then(user => { 
+
+    User.updateOne( { _id: req.query.id }, { blocked:  true },
+    function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+
+    res.redirect('/users/0000/admin/all_users')
+  })
+});
+
+router.get('/paidUnblock', (req, res) => {
+
+  User.findOne({ _id: req.query.id }).then(user => { 
+
+    User.updateOne( { _id: req.query.id }, { blocked:  false },
+    function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+
+
+    res.redirect('/users/0000/admin/blocked_users')
+  })
+});
+
 router.get('/close_paired', (req, res) => {
   User.findOne({ _id: req.query.myId }).then(user => { 
 
@@ -116,6 +154,43 @@ router.post('/proof', (req, res) => {
   res.redirect('/dashboard')
 
 });
+router.post('/proofR', (req, res) => {
+  const { img } = req.body;
+
+  User.findOne({ _id: userId }).then(user => {
+
+    User.updateOne({ _id: user._id }, { $push: { registerProof: [{ img: img}] } }, function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+  })
+
+  res.redirect('/dashboard')
+
+});
+
+
+router.post('/blockProof', (req, res) => {
+  const { img } = req.body;
+
+  User.findOne({ _id: userId }).then(user => {
+
+    User.updateOne({ _id: user._id }, { $push: { blockProof: [{ img: img}] } }, function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+      }
+    })
+  })
+
+  res.redirect('/dashboard')
+
+});
+
 
 router.get('/confirm', (req, res) => {
 
@@ -259,7 +334,6 @@ router.get('/paid', (req, res) => {
 
 router.get('/0000/admin', (req, res) => {
 
-
   User.find({ status: false }).then(user => {
     res.render('admin', {
       users: user
@@ -269,6 +343,27 @@ router.get('/0000/admin', (req, res) => {
 
 });
 
+router.get('/0000/admin/blocked_users', (req, res) => {
+
+  User.find({ blocked: true }).then(user => {
+    res.render('blockedUsers', {
+      users: user
+    })
+
+  })
+
+});
+
+router.get('/0000/admin/all_users', (req, res) => {
+
+  User.find({}, function (err, user) {
+    res.render('allUsers', { user: user });
+  });
+
+});
+
+
+
 
 router.get('/donate', (req, res) => {
   userId = req.query.id;
@@ -276,7 +371,6 @@ router.get('/donate', (req, res) => {
 });
 // add money by id, which is to update invate path and pick a user acct with the user id, because you will also update the user paired with detals, 
 // get the user details from withdraw box and delete it
-
 
 router.post('/donate', (req, res) => {
 
@@ -658,6 +752,8 @@ router.post('/register', (req, res) => {
         let paired = []
         let btn = true
         let proof = []
+        let registerProof = []
+        let blockProof = []
 
         const newUser = new User({
           name,
@@ -674,7 +770,9 @@ router.post('/register', (req, res) => {
           paring,
           paired,
           btn,
-          proof
+          proof,
+          registerProof,
+          blockProof
         });
 
         bcrypt.genSalt(10, (err, salt) => {

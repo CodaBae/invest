@@ -44,13 +44,21 @@ const UserSchema = new mongoose.Schema({
     type: Number,
   },
   blocked: {
-    type: Boolean,
+    type: Boolean, 
 
   },
   btn:{
     type: Boolean,
   },
   proof:{
+    type: [Object],
+
+  },
+  registerProof:{
+    type: [Object],
+
+  },
+  blockProof:{
     type: [Object],
 
   },

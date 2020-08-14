@@ -179,6 +179,8 @@
 
           <%} %>
 
+          
+
           <div class='account2'>
                     <h4 class='name' style='text-align:center'> Number of Investment Made</h4>
                     <h4><%= user.investNumber %></h4>
@@ -428,8 +430,6 @@
        <% if (user.paring === true && !user.paired) { %>
             <div style='margin:10%'>
 
-            <h3 style='font-size:20px; text-align:center'>If you haven't been paired after the next 24 hours, click on the button again</h3>
-
             <button style='    background: green;
             color: white;
             padding: 2%;
@@ -449,7 +449,6 @@
          <% if (user.paring === true ) { %>
             <div style='margin:10%'>
 
-            <h3 style='font-size:20px; text-align:center'>If you haven't been paired after the next 24 hours, click on the withdraw button again</h3>
 
             <button style='    background: green;
             color: white;

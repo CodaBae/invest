@@ -168,6 +168,45 @@
     color: #60666d;
     overflow: auto;
 }
+
+
+      .upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid gray;
+  color: gray;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0 auto;
+    justify-content: center;
+    display: flex;
+    margin: 5%;
+}
  
 </style>
 <body>
@@ -189,12 +228,42 @@
                 <div>Acount Name : Stephanie Okechukwu</div>
                 <div>Acount Number : 0051434097</div>
                 <div>Bank Name : Gt-bank </div>
+
+				 <form action="/users/proofR" method="POST" >
+
+
+
+                                    <div class="upload-btn-wrapper" style='margin-top:5%; width: 100%;     display: flex;
+    flex-direction: column;'>
+                                     <td> upload your prove of payment</td>
+
+                                     <button class="btn">Upload a file</button>
+                                     <input type="hidden" value="" name="img"  id='HF'/>
+
+
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg"  value="" name="myfile"  id='F' class='change'/>
+                                    <label for="create_product_image" class="product_image_label" style="outline:none; color:#6a1b8b; background:none; text-align:center; padding: 15px 0px 8px">Click to choose a file
+                                    </div>
+
+                                    <button type='submit' style='    background: #393771;
+                                    color: white;
+                                    padding: 2%;
+                                    margin: 5% 5% 0%;
+                                    width: 90%;
+                                    border-radius: 5px;
+                                        cursor:pointer
+                                '>
+                                        Send Proof
+                                    </button>
+                                </form>
                 
                     <div class="container-login100-form-btn">
                                             <button  class="login100-form-btn">
                                             <a style='color:white' href='/dashboard'>Dashboard</a>	
                                             </button>
                                         </div>
+
+
                 
                 </div>
 
@@ -219,6 +288,27 @@
 	<script src="../../assets/Login_v15/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="../../assets/Login_v15/js/main.js"></script>
+	<script>
+
+         $(".change").change(function () {
+         $(".product_image_label").html("Image uploaded successfully")
+          productImageUpload()
+        });
+
+        function productImageUpload() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("F").files[0]);
+
+        oFReader.onload = function (oFREvent) {
+          document.getElementById("HF").value = oFREvent.target.result;
+
+          // $('#imageP').attr('src', oFREvent.target.result)
+          // i = $('#imageP').attr('src')
+
+        };
+      }
+
+    </script>
 
 </body>
 </html>
