@@ -39,8 +39,8 @@ router.get('/terms', (req, res) => res.render('terms'));
 router.get('/pay', (req, res) => res.render('pay'));
 router.get('/i', (req, res) => {
   console.log('reahing')
-  User.findOne({ _id: req.query.id }).then(user => { 
-    User.updateOne({ _id: req.query.id }, { invite : user.invite + 1 }, function (err, payto) {
+  User.findOne({ _id: req.query.id }).then(user => {
+    User.updateOne({ _id: req.query.id }, { invite: user.invite + 1 }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -53,16 +53,16 @@ router.get('/i', (req, res) => {
 });
 router.get('/close_payto', (req, res) => {
 
-  User.findOne({ _id: req.query.myId }).then(user => { 
+  User.findOne({ _id: req.query.myId }).then(user => {
 
-    User.updateOne( { _id: req.query.myId }, { $pull: { 'payto': { payId: req.query.id } } },
-    function (err, payto) {
-      if (err) {
-        res.json({
-          error: err
-        })
-      }
-    })
+    User.updateOne({ _id: req.query.myId }, { $pull: { 'payto': { payId: req.query.id } } },
+      function (err, payto) {
+        if (err) {
+          res.json({
+            error: err
+          })
+        }
+      })
 
 
     res.redirect('/dashboard')
@@ -71,18 +71,18 @@ router.get('/close_payto', (req, res) => {
 
 router.post('/block', (req, res) => {
 
-  console.log(req.query.id )
+  console.log(req.query.id)
 
-  User.findOne({ _id: req.query.id }).then(user => { 
+  User.findOne({ _id: req.query.id }).then(user => {
 
-    User.updateOne( { _id: req.query.id }, { blocked:  true },
-    function (err, payto) {
-      if (err) {
-        res.json({
-          error: err
-        })
-      }
-    })
+    User.updateOne({ _id: req.query.id }, { blocked: true },
+      function (err, payto) {
+        if (err) {
+          res.json({
+            error: err
+          })
+        }
+      })
 
 
     res.redirect('/users/0000/admin/all_users')
@@ -91,16 +91,16 @@ router.post('/block', (req, res) => {
 
 router.get('/paidUnblock', (req, res) => {
 
-  User.findOne({ _id: req.query.id }).then(user => { 
+  User.findOne({ _id: req.query.id }).then(user => {
 
-    User.updateOne( { _id: req.query.id }, { blocked:  false },
-    function (err, payto) {
-      if (err) {
-        res.json({
-          error: err
-        })
-      }
-    })
+    User.updateOne({ _id: req.query.id }, { blocked: false },
+      function (err, payto) {
+        if (err) {
+          res.json({
+            error: err
+          })
+        }
+      })
 
 
     res.redirect('/users/0000/admin/blocked_users')
@@ -108,28 +108,28 @@ router.get('/paidUnblock', (req, res) => {
 });
 
 router.get('/close_paired', (req, res) => {
-  User.findOne({ _id: req.query.myId }).then(user => { 
+  User.findOne({ _id: req.query.myId }).then(user => {
 
-    User.updateOne( { _id: req.query.myId }, { $pull: { 'paired': { userId: req.query.id } } },
-    function (err, payto) {
-      console.log(payto)
-      if (err) {
-        res.json({
-          error: err
-        })
-      }
-    })
+    User.updateOne({ _id: req.query.myId }, { $pull: { 'paired': { userId: req.query.id } } },
+      function (err, payto) {
+        console.log(payto)
+        if (err) {
+          res.json({
+            error: err
+          })
+        }
+      })
 
-    console.log('ddddd',req.query.id)
+    console.log('ddddd', req.query.id)
 
-    User.updateOne( { _id: req.query.myId },  { $pull: { 'proof': { userId: req.query.id } } },
-    function (err, payto) {
-      if (err) {
-        res.json({
-          error: err
-        })
-      }
-    })
+    User.updateOne({ _id: req.query.myId }, { $pull: { 'proof': { userId: req.query.id } } },
+      function (err, payto) {
+        if (err) {
+          res.json({
+            error: err
+          })
+        }
+      })
 
 
     res.redirect('/dashboard')
@@ -142,7 +142,7 @@ router.post('/proof', (req, res) => {
   User.findOne({ _id: req.query.id }).then(user => {
 
     let payid = user.payto[0].payId
-    User.updateOne({ _id: payid }, { $push: { proof: [{ img: img, userId:req.query.id }] } }, function (err, payto) {
+    User.updateOne({ _id: payid }, { $push: { proof: [{ img: img, userId: req.query.id }] } }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -159,7 +159,7 @@ router.post('/proofR', (req, res) => {
 
   User.findOne({ _id: userId }).then(user => {
 
-    User.updateOne({ _id: user._id }, { $push: { registerProof: [{ img: img}] } }, function (err, payto) {
+    User.updateOne({ _id: user._id }, { $push: { registerProof: [{ img: img }] } }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -178,7 +178,7 @@ router.post('/blockProof', (req, res) => {
 
   User.findOne({ _id: userId }).then(user => {
 
-    User.updateOne({ _id: user._id }, { $push: { blockProof: [{ img: img}] } }, function (err, payto) {
+    User.updateOne({ _id: user._id }, { $push: { blockProof: [{ img: img }] } }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -193,24 +193,6 @@ router.post('/blockProof', (req, res) => {
 
 
 router.get('/confirm', (req, res) => {
-
-  // User.findOne({ _id: req.query.id }).then(user => {
-  //   let payid = user.paired[0].userId
-
-  //   console.log('ssss',payid)
-
-
-
-  // User.updateOne({ _id: payid }, { investNumber: investNumber + 1 }, function (err, payto) {
-  //     if (err) {
-  //       res.json({
-  //         error: err
-  //       })
-  //     }
-  //   })
-  // })
-
-
   User.findOne({ _id: req.query.id }).then(user => {
     let payid = user.paired[0].userId
     User.updateOne({ _id: payid }, { invested: user.paired[0].amount }, function (err, payto) {
@@ -223,7 +205,7 @@ router.get('/confirm', (req, res) => {
   })
   User.findOne({ _id: req.query.id }).then(user => {
     let payid = user.paired[0].userId
-    User.updateOne({ _id: payid }, { withdraw: (user.paired[0].amount/100) * 50 }, function (err, payto) {
+    User.updateOne({ _id: payid }, { withdraw: (user.paired[0].amount / 100) * 50 }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -253,12 +235,12 @@ router.get('/confirm', (req, res) => {
     })
   })
 
- 
+
   //me confirming
 
   User.findOne({ _id: req.query.id }).then(user => {
-    
-    User.updateOne({ _id:  req.query.id }, { paring: false }, function (err, payto) {
+
+    User.updateOne({ _id: req.query.id }, { paring: false }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -268,8 +250,8 @@ router.get('/confirm', (req, res) => {
   })
 
   User.findOne({ _id: req.query.id }).then(user => {
-    
-    User.updateOne({ _id:  req.query.id }, { invested: 0 }, function (err, payto) {
+
+    User.updateOne({ _id: req.query.id }, { invested: 0 }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -279,8 +261,8 @@ router.get('/confirm', (req, res) => {
   })
 
   User.findOne({ _id: req.query.id }).then(user => {
-    
-    User.updateOne({ _id:  req.query.id }, { btn: true }, function (err, payto) {
+
+    User.updateOne({ _id: req.query.id }, { btn: true }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -291,8 +273,8 @@ router.get('/confirm', (req, res) => {
 
   User.findOne({ _id: req.query.id }).then(user => {
     console.log(user.investNumber)
-    
-    User.updateOne({ _id: user._id }, { investNumber:  user.investNumber + 1 }, function (err, payto) {
+
+    User.updateOne({ _id: user._id }, { investNumber: user.investNumber + 1 }, function (err, payto) {
       if (err) {
         res.json({
           error: err
@@ -302,7 +284,7 @@ router.get('/confirm', (req, res) => {
   })
 
   User.findOne({ _id: req.query.id }).then(user => {
-    
+
     User.updateOne({ _id: req.query.id }, { withdraw: 0 }, function (err, payto) {
       if (err) {
         res.json({
@@ -311,14 +293,8 @@ router.get('/confirm', (req, res) => {
       }
     })
   })
-
-
-
   res.redirect('/dashboard')
-
 });
-
-
 router.get('/paid', (req, res) => {
   User.updateOne({ _id: req.query.id }, { status: true }, function (err, payto) {
     if (err) {
@@ -327,9 +303,7 @@ router.get('/paid', (req, res) => {
       })
     }
   })
-
   res.redirect('/users/0000/admin')
-
 });
 
 router.get('/0000/admin', (req, res) => {
@@ -340,7 +314,6 @@ router.get('/0000/admin', (req, res) => {
     })
 
   })
-
 });
 
 router.get('/0000/admin/blocked_users', (req, res) => {
@@ -380,7 +353,7 @@ router.post('/donate', (req, res) => {
   if (!amount) {
     errors.push({ msg: 'Select an amount' });
   }
-
+ 
   User.findOne({ _id: userId }).then(user => {
     if (user.status == false) {
 
@@ -410,7 +383,7 @@ router.post('/donate', (req, res) => {
 
           if (!pay) {
 
-            User.updateOne({ _id: userId }, {  paring: true  }, function (err, payto) {
+            User.updateOne({ _id: userId }, { paring: true }, function (err, payto) {
               if (err) {
                 res.json({
                   error: err
@@ -450,7 +423,6 @@ router.post('/donate', (req, res) => {
               amount: amount
 
             }]
-            console.log('jhhjhjh', payToId)
 
             User.update({ _id: payToId }, { $push: { paired: pairedR } }, function (err, user) {
               if (err) {
@@ -468,27 +440,9 @@ router.post('/donate', (req, res) => {
                 })
               }
               res.redirect('/dashboard')
-
-
             })
-
           }
-
-
-
-
-
-
-
-
         });
-
-
-
-
-
-
-
       } else if (amount) {
 
         WithdrawBox.findOne({ amount: amount }).then(pay => {
@@ -496,7 +450,7 @@ router.post('/donate', (req, res) => {
 
           if (!pay) {
 
-            User.updateOne({ _id: userId }, {  paring: true  }, function (err, payto) {
+            User.updateOne({ _id: userId }, { paring: true }, function (err, payto) {
               if (err) {
                 res.json({
                   error: err
@@ -537,7 +491,6 @@ router.post('/donate', (req, res) => {
               amount: amount
 
             }]
-
             User.update({ _id: payToId }, { $push: { paired: pairedR } }, function (err, user) {
               if (err) {
                 res.json({
@@ -545,9 +498,6 @@ router.post('/donate', (req, res) => {
                 })
               }
             })
-
-            console.log(payToId)
-
             WithdrawBox.deleteOne({ myId: payToId }, function (err, payto) {
               if (err) {
                 res.json({
