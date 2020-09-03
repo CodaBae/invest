@@ -221,6 +221,19 @@
     height: 100vh;
 }
 
+.login100-form {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 7% 20% 5%;
+    height: 170vh;
+}
+
 </style>
 
 
@@ -237,35 +250,8 @@
                 <% include ./partials/messages %>
 
 				<form action="/users/withdrawAdmin" method="POST" class="login100-form validate-form">
-                <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Name</span>
-						<input class="input100" type="text" name="name" placeholder="Name">
-						<span class="focus-input100"></span>
-					</div>
-                    <div class="wrap-input100 validate-input m-b-26" data-validate="Phone Number is required">
-						<span class="label-input100">Phone</span>
-						<input class="input100" type="number" name="phone" placeholder="Phone Number">
-						<span class="focus-input100"></span>
-					</div>
-				
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Account Name is required">
-						<span class="label-input100">Account Name</span>
-						<input class="input100" type="text" name="accName" placeholder="Enter Account Name">
-						<span class="focus-input100"></span>
-					</div>
-	                <div class="wrap-input100 validate-input m-b-26" data-validate="Account No. is required">
-						<span class="label-input100">Account No.</span>
-						<input class="input100" type="number" name="accNo" placeholder="Account No.">
-						<span class="focus-input100"></span>
-					</div>
-                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Bank Name">
-						<span class="label-input100">Bank Name</span>
-						<input class="input100" type="text" name="bank" placeholder="Enter Bank Name">
-						<span class="focus-input100"></span>
-					</div>
-
-						<span class="label-input100">amount</span>
+                <span class="label-input100">amount</span>
                                 <div class="select-box">
 
                             <div class="select-box__current" tabindex="1">
@@ -374,6 +360,37 @@
                                
                             </ul>
                         </div>
+
+
+                <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Name</span>
+						<input class="input100" type="text" name="name" placeholder="Name">
+						<span class="focus-input100"></span>
+					</div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Phone Number is required">
+						<span class="label-input100">Phone</span>
+						<input class="input100" type="number" name="phone" placeholder="Phone Number">
+						<span class="focus-input100"></span>
+					</div>
+				
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Account Name is required">
+						<span class="label-input100">Account Name</span>
+						<input class="input100" type="text" name="accName" placeholder="Enter Account Name">
+						<span class="focus-input100"></span>
+					</div>
+	                <div class="wrap-input100 validate-input m-b-26" data-validate="Account No. is required">
+						<span class="label-input100">Account No.</span>
+						<input class="input100" type="number" name="accNo" placeholder="Account No.">
+						<span class="focus-input100"></span>
+					</div>
+                    <div class="wrap-input100 validate-input m-b-18" data-validate = "Bank Name">
+						<span class="label-input100">Bank Name</span>
+						<input class="input100" type="text" name="bank" placeholder="Enter Bank Name">
+						<span class="focus-input100"></span>
+					</div>
+
+						
 
 
 
