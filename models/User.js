@@ -23,11 +23,11 @@ const UserSchema = new mongoose.Schema({
   payto: {
     type: [Object],
   },
-  paired:{
+  paired: {
     type: [Object],
 
   },
-  paring :{
+  paring: {
     type: Boolean,
 
   },
@@ -44,21 +44,25 @@ const UserSchema = new mongoose.Schema({
     type: Number,
   },
   blocked: {
-    type: Boolean, 
+    type: Boolean,
 
   },
-  btn:{
+  btn: {
     type: Boolean,
   },
-  proof:{
+  proof: {
     type: [Object],
 
   },
-  registerProof:{
+  registerProof: {
     type: [Object],
 
   },
-  blockProof:{
+  blockProof: {
+    type: [Object],
+
+  },
+  detail: {
     type: [Object],
 
   },

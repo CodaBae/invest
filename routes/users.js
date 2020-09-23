@@ -353,7 +353,7 @@ router.post('/donate', (req, res) => {
   if (!amount) {
     errors.push({ msg: 'Select an amount' });
   }
- 
+
   User.findOne({ _id: userId }).then(user => {
     if (user.status == false) {
 
@@ -679,7 +679,7 @@ router.post('/register', (req, res) => {
       password2
     });
   } else {
-    User.findOne({ email: email }).then(user => {
+    User.findOne({ email: email.toLowerCase() }).then(user => {
       if (user) {
         errors.push({ msg: 'Email already exists' });
         res.render('register', {
@@ -707,7 +707,7 @@ router.post('/register', (req, res) => {
 
         const newUser = new User({
           name,
-          email,
+          email: email.toLowerCase(),
           password,
           phone,
           status,
@@ -745,6 +745,52 @@ router.post('/register', (req, res) => {
     });
   }
 });
+
+
+// add details
+router.post('/details', (req, res) => {
+  const { name, phone, accName, accNo, bank } = req.body;
+  let errors = [];
+
+  if (!name || !phone || !accName || !accNo || !bank) {
+    errors.push({ msg: 'Please enter all fields' });
+  }
+
+  if (errors.length > 0) {
+    res.render('withdraw', {
+      errors,
+      name,
+      phone,
+      accName,
+      accNo,
+      bank,
+    });
+  } else {
+    let details = [{
+      name,
+      phone,
+      accName,
+      accNo,
+      bank,
+    }]
+    User.updateOne({ _id: userId }, { $push: { detail: details } }, function (err, payto) {
+      if (err) {
+        res.json({
+          error: err
+        })
+
+      }
+      console.log(userId)
+      console.log(payto)
+
+    })
+  }
+
+  res.redirect('/dashboard');
+
+});
+
+
 
 // Login
 router.post('/login', (req, res, next) => {
