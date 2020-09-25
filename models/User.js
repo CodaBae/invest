@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
   },
   payto: {
-    type: [Object],
+    type:Boolean,
   },
   paired: {
     type: [Object],
@@ -35,6 +35,9 @@ const UserSchema = new mongoose.Schema({
     type: Number,
   },
   withdraw: {
+    type: Number,
+  },
+  amount: { 
     type: Number,
   },
   invite: {
@@ -69,7 +72,7 @@ const UserSchema = new mongoose.Schema({
 
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now 
   },
 
 });

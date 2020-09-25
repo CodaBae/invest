@@ -115,7 +115,7 @@
     margin: 0 auto;
     justify-content: center;
     display: flex;
-    margin: 5%;
+    margin: 5%; margin-bottom:0%;
 }
 .page-wrapper {
     overflow: hidden;
@@ -185,7 +185,7 @@
                     border-radius: 5px;
                     cursor:pointer'>
                     <a style='    color: white;
-                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Details</a>
+                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Payment Details</a>
                 </button> 
 
           <%} %>
@@ -291,7 +291,7 @@
                     border-radius: 5px;
                     cursor:pointer'>
                     <a style='    color: white;
-                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Details</a>
+                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Payment Details</a>
                 </button> 
 
           <%} %>
@@ -340,6 +340,27 @@
                     </div>
                   </div>
 
+                     <% if (user.paring === true )  { %>
+                  
+
+                   
+                <button style='    background: #393771;
+                    color: white;
+                    padding: 5%;
+                    margin: 1% 5% 10%;
+                    width: 90%;
+                    border-radius: 5px;
+                     cursor: not-allowed;
+                      opacity: 0.5;
+                    '>
+                                <a style='    color: white;
+                    font-size: 1.3rem;' >Donate Now</a>
+                </button>
+
+
+                  <%} else{ %>
+                
+                   
                 <button style='    background: #393771;
                     color: white;
                     padding: 5%;
@@ -351,6 +372,9 @@
                                 <a style='    color: white;
                     font-size: 1.3rem;' href='/users/donate/?id=<%=user._id%>'>Donate Now</a>
                 </button>
+
+      
+                  <%}%>
 
                 </div>
 
@@ -364,9 +388,27 @@
                   </div>
 
                 
-                    <% if (!user.btn) { %>
+                    <% if (user.btn) { %>
+                  
 
-                    <button   style='    background: #393771;
+                   <button disabled  style='    background: #393771;
+                      color: white;
+                      padding: 5%;
+                      margin: 1% 5% 10%;
+                      width: 90%;
+                      border-radius: 5px;
+                      cursor: not-allowed;
+                      opacity: 0.5;
+                '>
+                               <a style='    color: white;
+                    font-size: 1.3rem;' >Withdraw</a>
+                </button>
+                   
+
+                  <%} else{ %>
+                
+                    <%if(new Date() !== user.date ){ %>
+                     <button   style='background: green;
                     color: white;
                     padding: 5%;
                     margin: 1% 5% 10%;
@@ -374,11 +416,28 @@
                     border-radius: 5px;
                         cursor:pointer
                 '>
-                                <a style='    color: white;
-                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Withdraw</a>
-                </button>
+                    <a style='    color: white;
+                    font-size: 1.3rem;' href='/users/WantPayment/?id=<%=user._id%>'>Withdraw</a>
+                  </button>
+                  <%  }else{ %>
 
-                    <%} %>
+                  <button   style='background: green;
+                    color: white;
+                    padding: 5%;
+                    margin: 1% 5% 10%;
+                    width: 90%;
+                    border-radius: 5px;
+                       cursor: not-allowed;
+                      opacity: 0.5;
+                '>
+                    <a style='    color: white;
+                    font-size: 1.3rem;' >Withdraw</a>
+                  </button>
+                 
+                   <% } %>
+            
+      
+                  <%}%>
                 
                 </div>
 
@@ -387,149 +446,39 @@
           </div>
         </section>
         <!-- END STATISTIC-->
-        <% if (user.paired.length > 0) {%>
-                        <div class="col-md-6 col-lg-4" style='max-width:90%; margin:5%'>
-                        <!-- TOP CAMPAIGN-->
-
-                            <% user.paired.map((item)=>{ %>
-                                    <div class="top-campaign">
-
-
-                            
-                                <h3 class="title-3 m-b-30">You have been Paired with <%=item.name%></h3>
-
-                              <a style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' href='/users/close_paired/?id=<%=item.userId%>&myId=<%=user._id%>'> <i class="fa fa-window-close" style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' aria-hidden="true"></i></a> 
-
-                                
-                                <div class="table-responsive">
-                                    <table class="table table-top-campaign">
-                                        <tbody>
-                                            <tr>
-                                                <td>Name</td>
-                                                <td><%=item.name%></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Phone Number</td>
-                                                <td><%=item.phone%></td>
-                                            </tr>
-                                            <tr>
-                                                <td>To pay in </td>
-                                                <td><%=item.amount%></td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                                <img style=' margin: 5% 0;' src='<%=user.proof[0].img%>' />
-
-                                <button style='    background: #393771;
-                                    color: white;
-                                    padding: 2%;
-                                    margin: 5% 5% 0%;
-                                    width: 90%;
-                                    border-radius: 5px;
-                                        cursor:pointer
-                                '>
-                                    <a style='    color: white;
-                        font-size: 1.3rem;' href='/users/confirm/?id=<%=user._id%>'>Confirm Payment</a>
-                                    </button>
-                           
-                           </div>
-
-       <% }) %>
-
        
-  <!-- END TOP CAMPAIGN-->
-                        </div>
-        
-        <!-- END PAGE CONTAINER-->
-             </div>
-
-
-        <% } else{ %>
-
-       <% if (user.paring === true && !user.paired) { %>
-            <div style='margin:10%'>
-
-            <button style='    background: green;
-            color: white;
-            padding: 2%;
-            margin: 5% 5% 5%;
-            width: 90%;
-            border-radius: 5px;
-            cursor:pointer'>
-            <a style='    color: white;
-            font-size: 1.3rem;' href='/users/comfirm/?id=<%=user._id%>'><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Pairing</a>
-            </button>
-            </div>
-
-
-
-       <% } %>
-
-         <% if (user.paring === true ) { %>
-            <div style='margin:10%'>
-
-
-            <button style='    background: green;
-            color: white;
-            padding: 2%;
-            margin: 5% 5% 5%;
-            width: 90%;
-            border-radius: 5px;
-            cursor:pointer'>
-            <a style='    color: white;
-            font-size: 1.3rem;' href='/users/comfirm/?id=<%=user._id%>'><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Pairing</a>
-            </button>
-            </div>
-
-
-
-       <% } %>
-
-
-        <% } %>
-
-
-       <% if (user.payto.length > 0){ %>
-
-       <% let data = user.payto[0] %>
-
-                <div class="col-md-6 col-lg-4" style='max-width:90%; margin:5%'>
+         <% if (user.paring === true && user.proof.length < 1 ) { %>
+          <div class="col-md-6 col-lg-4" style='max-width:90%; margin:5%'>
                             <!-- TOP CAMPAIGN-->
                             <div class="top-campaign">
-                                <h3 class="title-3 m-b-30">You have been Paired with <%=data.payName%>, Pay into this Account</h3>
+                                <h3 class="title-3 m-b-30">You have been Paired with Stephanie Okechukwu, Pay into this Account</h3>
 
-                              <a style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' href='/users/close_payto/?id=<%=data.payId%>&myId=<%=user._id%>'> <i class="fa fa-window-close" style=' float: right; margin-top: -6%; font-size: 2rem; color: red;' aria-hidden="true"></i></a> 
+                              <a style='  cursor:pointer; float: right; margin-top: -6%; font-size: 2rem; color: red;' href='#'> <i class="fa fa-window-close" style=' float: right; margin-top: -6%; font-size: 2rem; color: red;' aria-hidden="true"></i></a> 
 
                                 
                                 <div class="table-responsive">
                                     <table class="table table-top-campaign">
                                         <tbody>
-                                            <tr>
+                                            <tr>        
                                                 <td>Name</td>
-                                                <td><%=data.payName%></td>
+                                                <td>Stephanie Okechukwu</td>
                                             </tr>
-                                            <tr>
-                                                <td>Phone Number</td>
-                                                <td><%=data.payPhone%></td>
-                                            </tr>
+                                            
                                             <tr>
                                                 <td>Account No </td>
-                                                <td><%=data.payAccNo%></td>
+                                                <td>1101162804</td>
                                             </tr>
                                             <tr>
                                                 <td>Account Name</td>
-                                                <td><%=data.payAccName%></td>
+                                                <td>Stephanie Okechukwu</td>
                                             </tr>
                                             <tr>
                                                 <td>Bank Name</td>
-                                                <td><%=data.payBank%></td>
+                                                <td>Kuda Bank</td>
                                             </tr>
                                             <tr>
                                                 <td>Amount to pay </td>
-                                                <td><%=data.payAmount%></td>
+                                                <td><%=user.amount%></td>
                                             </tr>
                                             
                                         </tbody>
@@ -571,15 +520,68 @@
         
         <!-- END PAGE CONTAINER-->
       </div>
-
-
+              
         <% }else{ %>
+             <% if (user.proof.length >= 1 && user.invested == 0) { %>
+                  <h2 style='     margin: 5%; margin-bottom:0%;
+;   text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>your payment will be Approved Shortly<h2>
+                
+             <% }else{ %>
 
-       
+              <% if (user.proof.length >= 1 && user.invested == 0) { %>
+                  <h2 style='     margin: 5%; margin-bottom:0%;
+;   text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>your payment will be Approved Shortly<h2>
+                
+             <% } else if (user.btn === false && user.payto === false) {%>
+                <h2 style='    margin: 5%; margin-bottom:0%;
+;text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>Hello <%=user.name%>, you will be able to withdraw your investment in the next three days, we advice you add your payment details if you haven't<h2>
+      <button style='    background: blue;
+                    color: white;
+                    padding: 4%;
+                    margin: 3% 5% 5%;
+                    width: 90%;
+                    border-radius: 5px;
+                    cursor:pointer'>
+                    <a style='    color: white;
+                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Payment Details</a>
+                </button> 
+            <% }else if (user.payto === true) {%>
+                <h2 style='    margin: 5%; margin-bottom:0%;
+;text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>Hello <%=user.name%>, you have requested for payment and will be paid Shortly,we advice you add your payment details if you haven't<h2>
+      <button style='    background: blue;
+                    color: white;
+                    padding: 4%;
+                    margin: 3% 5% 5%;
+                    width: 90%;
+                    border-radius: 5px;
+                    cursor:pointer'>
+                    <a style='    color: white;
+                    font-size: 1.3rem;' href='/users/withdraw/?id=<%=user._id%>'>Add Payment Details</a>
+                </button> 
+            <% }else if (user.investNumber >= 0 && user.paring === false){ %>
+ <h2 style='    margin: 5%; margin-bottom:0%;
+;text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>Hello <%=user.name%>, Thanks for your previous Investment, Start donating today<h2>
+
+        <% } else if (user.paring === false && user.payto === false && user.btn === true && user.proof.length === 0 && user.investNumber === 0){ %>
+ <h2 style='    margin: 5%; margin-bottom:0%;
+;text-align: center;
+    margin-top: 7%;  font-size: 1rem;
+'>Hello <%=user.name%>, start donating today<h2>
+
+        <% } %>
+        <% } %>
 
         <%} %>
-
-
 
        
     </div>
